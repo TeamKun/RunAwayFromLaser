@@ -56,4 +56,10 @@ public class LaserApi {
     public void setPaused(boolean paused) {
         laser.isPaused = paused;
     }
+
+    public void cancel() {
+        laser.generateLaserTask.cancel();
+        laser.moveLaserTask.cancel();
+        laser.detectHitPlayerTask.cancel();
+    }
 }

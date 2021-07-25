@@ -10,28 +10,29 @@ public class Laser {
     double gap = 0.0625;
     float size = 1.0F;
     double speedRatio = 0.85;
-    boolean isPaused = false;
+    boolean isPaused = true;
     GenerateLaserTask generateLaserTask;
     MoveLaserTask moveLaserTask;
     DetectHitPlayerTask detectHitPlayerTask;
 
-    public Laser(Location origin, int length) {
+    private Laser(Location origin, int length) {
         this.origin = origin.clone().add(0, 2, 0);
         this.length = length;
     }
 
-    public LaserApi execute() {
+    public static LaserApi create(Location origin, int length) {
         JavaPlugin plugin = RunAwayFromLaser.getInstance();
+        Laser laser = new Laser(origin, length);
 
-        generateLaserTask = new GenerateLaserTask(this);
-        generateLaserTask.runTaskTimerAsynchronously(plugin, 0, 0);
+        laser.generateLaserTask = new GenerateLaserTask(laser);
+        laser.generateLaserTask.runTaskTimerAsynchronously(plugin, 0, 0);
 
-        moveLaserTask = new MoveLaserTask(this);
-        moveLaserTask.runTaskTimerAsynchronously(plugin, 0, 0);
+        laser.moveLaserTask = new MoveLaserTask(laser);
+        laser.moveLaserTask.runTaskTimerAsynchronously(plugin, 0, 0);
 
-        detectHitPlayerTask = new DetectHitPlayerTask(this);
-        detectHitPlayerTask.runTaskTimer(plugin, 0, 4);
+        laser.detectHitPlayerTask = new DetectHitPlayerTask(laser);
+        laser.detectHitPlayerTask.runTaskTimer(plugin, 0, 4);
 
-        return new LaserApi(this);
+        return new LaserApi(laser);
     }
 }
