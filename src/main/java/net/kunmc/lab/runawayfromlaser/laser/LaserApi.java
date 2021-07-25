@@ -14,7 +14,7 @@ public class LaserApi {
     }
 
     public Location origin() {
-        return laser.origin;
+        return laser.origin.clone();
     }
 
     public void length(int length) {

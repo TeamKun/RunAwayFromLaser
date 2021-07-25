@@ -5,6 +5,8 @@ import net.kunmc.lab.runawayfromlaser.laser.Laser;
 import net.kunmc.lab.runawayfromlaser.laser.LaserApi;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameManager {
@@ -26,8 +28,10 @@ public class GameManager {
             w.setGameRule(GameRule.MAX_ENTITY_CRAMMING, 0);
         });
 
+        setWall(Material.CHISELED_QUARTZ_BLOCK);
+
         Bukkit.getOnlinePlayers().forEach(p -> {
-            p.teleport(api.origin().clone().add(api.length() / 2, 1, -3));
+            p.teleport(api.origin().add(api.length() / 2, 1, -8));
         });
 
         final int[] count = {3};
@@ -38,18 +42,33 @@ public class GameManager {
                     if (count[0] != 0) {
                         p.sendTitle("開始まで" + count[0] + "秒", "", 0, 40, 0);
                     } else {
+                        setWall(Material.AIR);
                         p.sendTitle("スタート!", "", 0, 20, 0);
 
                         api.setPaused(false);
                         api.setInvisible(false);
                         isStarted = true;
-                        
+
                         this.cancel();
                     }
                 });
                 count[0]--;
             }
         }.runTaskTimer(RunAwayFromLaser.getInstance(), 0, 20);
+    }
+
+    private void setWall(Material material) {
+        Location origin = api.origin();
+        for (int y = 0; y < 2; y++) {
+            for (int z = 0; z < 4; z++) {
+                origin.clone().add(-1, y, z).getBlock().setType(material);
+                origin.clone().add(api.length(), y, z).getBlock().setType(material);
+            }
+
+            for (int x = -1; x < api.length(); x++) {
+                origin.clone().add(x, y, 0).getBlock().setType(material);
+            }
+        }
     }
 
     public void pause() {
