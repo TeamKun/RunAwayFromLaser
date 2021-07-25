@@ -17,6 +17,7 @@ public class CommandHandler implements TabExecutor {
         put("start", new StartCommand());
         put("stop", new StopCommand());
         put("pause", new PauseCommand());
+        put("resume", new ResumeCommand());
     }};
 
     @Override
