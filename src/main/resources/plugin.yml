@@ -1,0 +1,7 @@
+name: RunAwayFromLaser
+version: ${project.version}
+main: net.kunmc.lab.runawayfromlaser.RunAwayFromLaser
+api-version: 1.17
+commands:
+  rafl:
+    usage: |-
