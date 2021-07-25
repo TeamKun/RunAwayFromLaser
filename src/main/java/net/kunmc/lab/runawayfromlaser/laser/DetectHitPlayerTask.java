@@ -1,14 +1,14 @@
-package net.kunmc.lab.runawayfromlaser.task;
+package net.kunmc.lab.runawayfromlaser.laser;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.scheduler.BukkitRunnable;
 
 class DetectHitPlayerTask extends BukkitRunnable {
-    private final GenerateLaserTask generateLaserTask;
+    private final Laser laser;
 
-    DetectHitPlayerTask(GenerateLaserTask generateLaserTask) {
-        this.generateLaserTask = generateLaserTask;
+    DetectHitPlayerTask(Laser laser) {
+        this.laser = laser;
     }
 
     @Override
@@ -19,7 +19,7 @@ class DetectHitPlayerTask extends BukkitRunnable {
                 .filter(p -> !p.isDead())
                 .forEach(p -> {
                     double z = p.getLocation().getZ();
-                    if (z < generateLaserTask.origin.getZ()) {
+                    if (z < laser.origin.getZ()) {
                         p.setHealth(0.0);
                     }
                 });
