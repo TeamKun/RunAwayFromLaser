@@ -13,11 +13,12 @@ public class StartCommand implements SubCommand {
         GameManager manager = GameManager.getInstance();
 
         if (manager.isStarted) {
-            sender.sendMessage(ChatColor.RED + "すでに開始しています.");
+            sender.sendMessage(ChatColor.RED + "すでにゲームは開始されています.");
             return;
         }
 
         manager.start();
+        sender.sendMessage(ChatColor.GREEN + "ゲームを開始します.");
     }
 
     @Override
