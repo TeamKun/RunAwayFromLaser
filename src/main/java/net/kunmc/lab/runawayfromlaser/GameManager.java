@@ -3,15 +3,13 @@ package net.kunmc.lab.runawayfromlaser;
 import net.kunmc.lab.runawayfromlaser.config.Config;
 import net.kunmc.lab.runawayfromlaser.laser.Laser;
 import net.kunmc.lab.runawayfromlaser.laser.LaserApi;
-import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class GameManager {
     public LaserApi api;
     public boolean isStarted = false;
+    public int delay = 100;
     private static final GameManager instance = new GameManager();
 
     public static GameManager getInstance() {
@@ -34,7 +32,7 @@ public class GameManager {
             p.teleport(api.origin().add(api.length() / 2, 1, -8));
         });
 
-        final int[] count = {3};
+        final int[] count = {10};
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -43,18 +41,27 @@ public class GameManager {
                         p.sendTitle("開始まで" + count[0] + "秒", "", 0, 40, 0);
                     } else {
                         setWall(Material.AIR);
-                        p.sendTitle("スタート!", "", 0, 20, 0);
+                        p.sendTitle("スタート!",
+                                ChatColor.RED + "" + delay / 20 + "秒後レーザーが後ろから追いかけてきます", 0, 40, 20);
 
-                        api.setPaused(false);
-                        api.setInvisible(false);
                         isStarted = true;
-
                         this.cancel();
                     }
                 });
                 count[0]--;
             }
         }.runTaskTimer(RunAwayFromLaser.getInstance(), 0, 20);
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                api.setPaused(false);
+                api.setInvisible(false);
+                Bukkit.getOnlinePlayers().forEach(p -> {
+                    p.sendTitle("", ChatColor.RED + "レーザーが後ろから追いかけてきました", 0, 30, 20);
+                });
+            }
+        }.runTaskLater(RunAwayFromLaser.getInstance(), count[0] * 20L + delay);
     }
 
     private void setWall(Material material) {
