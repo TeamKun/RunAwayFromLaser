@@ -14,6 +14,7 @@ public class CommandHandler implements TabExecutor {
     private final Map<String, SubCommand> subCmdMap = new HashMap<String, SubCommand>() {{
         put("createStair", new CreateStairCommand());
         put("setStairInfo", new SetStairInfoCommand());
+        put("start", new StartCommand());
     }};
 
     @Override
