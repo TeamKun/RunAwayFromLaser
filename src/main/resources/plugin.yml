@@ -5,3 +5,4 @@ api-version: 1.17
 commands:
   rafl:
     usage: |-
+      /rafl createStair <width>
