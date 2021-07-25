@@ -1,6 +1,7 @@
 package net.kunmc.lab.runawayfromlaser;
 
 import net.kunmc.lab.runawayfromlaser.command.CommandHandler;
+import net.kunmc.lab.runawayfromlaser.config.Config;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,10 +18,12 @@ public final class RunAwayFromLaser extends JavaPlugin {
         TabExecutor tabExecutor = new CommandHandler();
         getServer().getPluginCommand("rafl").setExecutor(tabExecutor);
         getServer().getPluginCommand("rafl").setTabCompleter(tabExecutor);
+
+        Config.getInstance().loadConfig();
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        Config.getInstance().saveConfig();
     }
 }

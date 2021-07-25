@@ -6,3 +6,4 @@ commands:
   rafl:
     usage: |-
       /rafl createStair <width>
+      /rafl setStairInfo <width>

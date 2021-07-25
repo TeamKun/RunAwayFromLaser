@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class CommandHandler implements TabExecutor {
     private final Map<String, SubCommand> subCmdMap = new HashMap<String, SubCommand>() {{
         put("createStair", new CreateStairCommand());
+        put("setStairInfo", new SetStairInfoCommand());
     }};
 
     @Override
@@ -32,7 +33,7 @@ public class CommandHandler implements TabExecutor {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
-        List<String> completion = new ArrayList<>(Collections.emptyList());
+        List<String> completion = new ArrayList<>();
 
         if (args.length == 1) {
             completion.addAll(subCmdMap.keySet());

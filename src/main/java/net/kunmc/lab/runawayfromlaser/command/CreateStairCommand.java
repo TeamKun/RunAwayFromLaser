@@ -1,6 +1,7 @@
 package net.kunmc.lab.runawayfromlaser.command;
 
 import net.kunmc.lab.runawayfromlaser.RunAwayFromLaser;
+import net.kunmc.lab.runawayfromlaser.config.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CreateStairCommand implements SubCommand {
@@ -42,15 +42,20 @@ public class CreateStairCommand implements SubCommand {
             return;
         }
 
-        Location loc = ((Player) sender).getLocation();
-        new CreateStairTask(loc, width).runTaskAsynchronously(RunAwayFromLaser.getInstance());
-
+        Location origin = ((Player) sender).getLocation();
+        new CreateStairTask(origin, width).runTaskAsynchronously(RunAwayFromLaser.getInstance());
         sender.sendMessage(String.format(ChatColor.GREEN + "幅%dブロックの階段の生成を開始します.", width));
+
+        origin.setY(-2032);
+        Config.getInstance().stairInfo.origin = origin;
+        Config.getInstance().stairInfo.width = width;
+        sender.sendMessage(String.format(ChatColor.GREEN + "StairInfoの設定をorigin={x=%d, y=%d, z=%d}, width=%dに設定しました.",
+                origin.getBlockX(), origin.getBlockY(), origin.getBlockZ(), width));
     }
 
     @Override
     public List<String> tabComplete(CommandSender sender, String[] args) {
-        List<String> completion = new ArrayList<>(Collections.emptyList());
+        List<String> completion = new ArrayList<>();
 
         if (args.length == 1) {
             completion.add("<width>");
