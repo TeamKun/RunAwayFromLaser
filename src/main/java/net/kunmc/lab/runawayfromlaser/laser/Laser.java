@@ -11,6 +11,7 @@ public class Laser {
     float size = 1.0F;
     double speedRatio = 0.85;
     boolean isPaused = true;
+    boolean isInvisible = true;
     GenerateLaserTask generateLaserTask;
     MoveLaserTask moveLaserTask;
     DetectHitPlayerTask detectHitPlayerTask;

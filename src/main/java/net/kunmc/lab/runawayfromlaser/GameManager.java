@@ -39,8 +39,11 @@ public class GameManager {
                         p.sendTitle("開始まで" + count[0] + "秒", "", 0, 40, 0);
                     } else {
                         p.sendTitle("スタート!", "", 0, 20, 0);
+
                         api.setPaused(false);
+                        api.setInvisible(false);
                         isStarted = true;
+                        
                         this.cancel();
                     }
                 });

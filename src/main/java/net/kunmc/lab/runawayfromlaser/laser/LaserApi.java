@@ -57,6 +57,14 @@ public class LaserApi {
         laser.isPaused = paused;
     }
 
+    public boolean isInvisible() {
+        return laser.isInvisible;
+    }
+
+    public void setInvisible(boolean invisible) {
+        laser.isInvisible = invisible;
+    }
+
     public void cancel() {
         laser.generateLaserTask.cancel();
         laser.moveLaserTask.cancel();

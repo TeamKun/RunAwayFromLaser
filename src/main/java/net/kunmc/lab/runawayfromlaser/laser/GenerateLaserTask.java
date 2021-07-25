@@ -13,6 +13,10 @@ class GenerateLaserTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (laser.isInvisible) {
+            return;
+        }
+        
         for (double x = -2; x < laser.length + 2; x += laser.gap) {
             laser.origin.getWorld().spawnParticle(Particle.REDSTONE,
                     laser.origin.getX() + x, laser.origin.getY(), laser.origin.getZ(),
