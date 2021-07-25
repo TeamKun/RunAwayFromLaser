@@ -41,6 +41,7 @@ public class GameManager {
                         p.sendTitle("スタート!", "", 0, 20, 0);
                         api.setPaused(false);
                         isStarted = true;
+                        this.cancel();
                     }
                 });
                 count[0]--;
