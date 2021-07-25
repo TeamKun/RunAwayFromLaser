@@ -10,10 +10,15 @@ public class Laser {
     double gap = 0.0625;
     float size = 1.0F;
     double speedRatio = 0.85;
-    boolean isPaused = true;
+    boolean isPaused = false;
     GenerateLaserTask generateLaserTask;
     MoveLaserTask moveLaserTask;
     DetectHitPlayerTask detectHitPlayerTask;
+
+    public Laser(Location origin, int length) {
+        this.origin = origin.clone().add(0, 2, 0);
+        this.length = length;
+    }
 
     public LaserApi execute() {
         JavaPlugin plugin = RunAwayFromLaser.getInstance();
