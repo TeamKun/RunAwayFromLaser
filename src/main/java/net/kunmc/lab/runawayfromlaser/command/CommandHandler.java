@@ -15,6 +15,7 @@ public class CommandHandler implements TabExecutor {
         put("createStair", new CreateStairCommand());
         put("setStairInfo", new SetStairInfoCommand());
         put("start", new StartCommand());
+        put("stop", new StopCommand());
     }};
 
     @Override
