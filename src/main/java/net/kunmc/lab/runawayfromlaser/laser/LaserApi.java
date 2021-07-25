@@ -48,4 +48,12 @@ public class LaserApi {
     public double laserSize() {
         return laser.size;
     }
+
+    public boolean isPaused() {
+        return laser.isPaused;
+    }
+
+    public void setPaused(boolean paused) {
+        laser.isPaused = paused;
+    }
 }

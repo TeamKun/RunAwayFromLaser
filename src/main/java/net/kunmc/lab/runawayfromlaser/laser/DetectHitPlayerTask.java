@@ -13,6 +13,10 @@ class DetectHitPlayerTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        if (laser.isPaused) {
+            return;
+        }
+        
         Bukkit.getOnlinePlayers().stream()
                 .filter(p -> !(p.getGameMode().equals(GameMode.CREATIVE)))
                 .filter(p -> !(p.getGameMode().equals(GameMode.SPECTATOR)))

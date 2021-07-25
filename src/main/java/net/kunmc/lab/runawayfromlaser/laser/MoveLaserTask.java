@@ -12,6 +12,8 @@ class MoveLaserTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        laser.origin.add(0, baseSpeed * laser.speedRatio, baseSpeed * laser.speedRatio);
+        if (!laser.isPaused) {
+            laser.origin.add(0, baseSpeed * laser.speedRatio, baseSpeed * laser.speedRatio);
+        }
     }
 }

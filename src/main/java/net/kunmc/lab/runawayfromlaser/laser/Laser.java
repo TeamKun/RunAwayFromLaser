@@ -10,6 +10,7 @@ public class Laser {
     double gap = 0.0625;
     float size = 1.0F;
     double speedRatio = 0.85;
+    boolean isPaused = true;
     GenerateLaserTask generateLaserTask;
     MoveLaserTask moveLaserTask;
     DetectHitPlayerTask detectHitPlayerTask;
