@@ -5,6 +5,7 @@ import net.kunmc.lab.runawayfromlaser.config.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Stairs;
@@ -81,6 +82,28 @@ public class CreateStairCommand implements SubCommand {
 
         @Override
         public void run() {
+            for (int x = -30; x < width + 30; x++) {
+                for (int z = -(width + 10); z < 20; z++) {
+                    int finalX = x;
+                    int finalZ = z;
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            Block b = basePoint.clone().add(finalX, -2032, finalZ).getBlock();
+                            if (b.getType().equals(Material.QUARTZ_STAIRS)) {
+                                return;
+                            }
+
+                            if (b.getLightLevel() < 9) {
+                                b.setType(Material.GLOWSTONE);
+                            } else {
+                                b.setType(Material.QUARTZ_SLAB);
+                            }
+                        }
+                    }.runTaskLater(RunAwayFromLaser.getInstance(), x + 30);
+                }
+            }
+
             int z = 0;
             for (int y = -2032; y < 2032; y++) {
                 new SetLineTask(y, z).runTaskLater(RunAwayFromLaser.getInstance(), count);
