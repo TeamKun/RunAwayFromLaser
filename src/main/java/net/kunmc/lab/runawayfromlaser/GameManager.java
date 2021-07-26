@@ -32,6 +32,8 @@ public class GameManager {
             p.teleport(api.origin().add(api.length() / 2, 1, -8));
         });
 
+        isStarted = true;
+
         final int[] count = {10};
         new BukkitRunnable() {
             @Override
@@ -44,7 +46,6 @@ public class GameManager {
                         p.sendTitle("スタート!",
                                 ChatColor.RED + "" + delay / 20 + "秒後レーザーが後ろから追いかけてきます", 0, 40, 20);
 
-                        isStarted = true;
                         this.cancel();
                     }
                 });
