@@ -5,11 +5,14 @@ import net.kunmc.lab.runawayfromlaser.laser.Laser;
 import net.kunmc.lab.runawayfromlaser.laser.LaserApi;
 import org.bukkit.*;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 public class GameManager {
     public LaserApi api;
     public boolean isStarted = false;
     public int delay = 100;
+    private BukkitTask countTask;
+    private BukkitTask laserStartTask;
     private static final GameManager instance = new GameManager();
 
     public static GameManager getInstance() {
@@ -35,7 +38,7 @@ public class GameManager {
         isStarted = true;
 
         final int[] count = {10};
-        new BukkitRunnable() {
+        countTask = new BukkitRunnable() {
             @Override
             public void run() {
                 Bukkit.getOnlinePlayers().forEach(p -> {
@@ -53,7 +56,7 @@ public class GameManager {
             }
         }.runTaskTimer(RunAwayFromLaser.getInstance(), 0, 20);
 
-        new BukkitRunnable() {
+        laserStartTask = new BukkitRunnable() {
             @Override
             public void run() {
                 api.setPaused(false);
@@ -89,6 +92,8 @@ public class GameManager {
 
     public void stop() {
         api.cancel();
+        countTask.cancel();
+        laserStartTask.cancel();
 
         Config config = Config.getInstance();
         this.api = Laser.create(config.stairInfo.origin, config.stairInfo.width);
