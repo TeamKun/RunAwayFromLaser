@@ -35,6 +35,9 @@ public class GameManager {
     }
 
     public void start() {
+        api.origin(Config.getInstance().stairInfo.origin);
+        api.length(Config.getInstance().stairInfo.width);
+
         Bukkit.getWorlds().forEach(w -> {
             w.setGameRule(GameRule.MAX_ENTITY_CRAMMING, 0);
         });
@@ -163,13 +166,9 @@ public class GameManager {
     }
 
     public void stop() {
-        api.cancel();
+        api.stop();
         taskList.forEach(BukkitTask::cancel);
         taskList.clear();
-
-        Config config = Config.getInstance();
-        this.api = Laser.create(config.stairInfo.origin, config.stairInfo.width);
-
         isStarted = false;
     }
 }
