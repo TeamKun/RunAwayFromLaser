@@ -38,6 +38,11 @@ public class GameManager {
         setWall(Material.CHISELED_QUARTZ_BLOCK);
 
         Bukkit.getOnlinePlayers().forEach(p -> {
+            if (Util.isCreativeOrSpectator(p)) {
+                return;
+            }
+            
+            p.setGameMode(GameMode.ADVENTURE);
             p.teleport(api.origin().add(api.length() / 2, 1, -8));
         });
 
