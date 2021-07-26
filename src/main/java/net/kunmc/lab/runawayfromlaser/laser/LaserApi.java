@@ -21,7 +21,7 @@ public class LaserApi {
         laser.length = length;
     }
 
-    public double length() {
+    public int length() {
         return laser.length;
     }
 

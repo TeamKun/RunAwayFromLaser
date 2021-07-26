@@ -11,3 +11,5 @@ commands:
       /rafl stop
       /rafl pause
       /rafl resume
+      /rafl config show
+      /rafl config set <value>

@@ -29,8 +29,10 @@ public final class RunAwayFromLaser extends JavaPlugin {
         Config.getInstance().loadConfig();
 
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-        scoreboard.registerNewObjective(objectiveName, "dummy", Component.text("step"))
-                .setDisplaySlot(DisplaySlot.SIDEBAR);
+        if (scoreboard.getObjective(objectiveName) == null) {
+            scoreboard.registerNewObjective(objectiveName, "dummy", Component.text("step"))
+                    .setDisplaySlot(DisplaySlot.SIDEBAR);
+        }
     }
 
     @Override
