@@ -87,7 +87,6 @@ public class GameManager {
                     Block b = p.getLocation().add(0, -0.3, 0).getBlock();
                     if (b.getType().equals(Material.QUARTZ_STAIRS)) {
                         objective.getScore(p.getName()).setScore(b.getY() + 2032);
-                        Bukkit.getLogger().info("a");
                     }
                 });
             }
