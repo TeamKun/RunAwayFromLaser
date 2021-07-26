@@ -41,13 +41,14 @@ public class GameManager {
             if (Util.isCreativeOrSpectator(p)) {
                 return;
             }
-            
+
             p.setGameMode(GameMode.ADVENTURE);
             p.teleport(api.origin().add(api.length() / 2, 1, -8));
         });
 
         isStarted = true;
 
+        //開始のカウントダウンをするタスク
         final int[] count = {10};
         taskList.add(new BukkitRunnable() {
             @Override
@@ -60,13 +61,14 @@ public class GameManager {
                         p.sendTitle("スタート!",
                                 ChatColor.RED + "" + delay + "秒後レーザーが後ろから追いかけてきます", 0, 40, 20);
 
+                        //レーザーを作動させるタスク
                         taskList.add(new BukkitRunnable() {
                             @Override
                             public void run() {
                                 api.setPaused(false);
                                 api.setInvisible(false);
                                 Bukkit.getOnlinePlayers().forEach(p -> {
-                                    p.sendTitle("", ChatColor.RED + "レーザーが後ろから追いかけてきました", 0, 30, 20);
+                                    p.sendTitle(" ", ChatColor.RED + "レーザーが後ろから追いかけてきました", 0, 30, 20);
                                 });
                             }
                         }.runTaskLater(RunAwayFromLaser.getInstance(), delay * 20L));
@@ -78,6 +80,7 @@ public class GameManager {
             }
         }.runTaskTimer(RunAwayFromLaser.getInstance(), 0, 20));
 
+        //Scoreboardを更新し続けるタスク
         taskList.add(new BukkitRunnable() {
             @Override
             public void run() {
