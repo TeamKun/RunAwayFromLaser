@@ -7,3 +7,7 @@ commands:
     usage: |-
       /rafl createStair <width>
       /rafl setStairInfo <width>
+      /rafl start
+      /rafl stop
+      /rafl pause
+      /rafl resume
