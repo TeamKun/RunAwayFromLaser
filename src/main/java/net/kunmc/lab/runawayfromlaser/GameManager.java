@@ -55,23 +55,23 @@ public class GameManager {
                         p.sendTitle("スタート!",
                                 ChatColor.RED + "" + delay / 20 + "秒後レーザーが後ろから追いかけてきます", 0, 40, 20);
 
+                        taskList.add(new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                api.setPaused(false);
+                                api.setInvisible(false);
+                                Bukkit.getOnlinePlayers().forEach(p -> {
+                                    p.sendTitle("", ChatColor.RED + "レーザーが後ろから追いかけてきました", 0, 30, 20);
+                                });
+                            }
+                        }.runTaskLater(RunAwayFromLaser.getInstance(), delay));
+
                         this.cancel();
                     }
                 });
                 count[0]--;
             }
         }.runTaskTimer(RunAwayFromLaser.getInstance(), 0, 20));
-
-        taskList.add(new BukkitRunnable() {
-            @Override
-            public void run() {
-                api.setPaused(false);
-                api.setInvisible(false);
-                Bukkit.getOnlinePlayers().forEach(p -> {
-                    p.sendTitle("", ChatColor.RED + "レーザーが後ろから追いかけてきました", 0, 30, 20);
-                });
-            }
-        }.runTaskLater(RunAwayFromLaser.getInstance(), count[0] * 20L + delay));
 
         taskList.add(new BukkitRunnable() {
             @Override
