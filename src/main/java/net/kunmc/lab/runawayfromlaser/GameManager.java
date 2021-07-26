@@ -3,9 +3,13 @@ package net.kunmc.lab.runawayfromlaser;
 import net.kunmc.lab.runawayfromlaser.config.Config;
 import net.kunmc.lab.runawayfromlaser.laser.Laser;
 import net.kunmc.lab.runawayfromlaser.laser.LaserApi;
+import net.kunmc.lab.runawayfromlaser.util.Util;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 public class GameManager {
     public LaserApi api;
@@ -13,6 +17,7 @@ public class GameManager {
     public int delay = 100;
     private BukkitTask countTask;
     private BukkitTask laserStartTask;
+    private BukkitTask updateScoreboardTask;
     private static final GameManager instance = new GameManager();
 
     public static GameManager getInstance() {
@@ -66,6 +71,26 @@ public class GameManager {
                 });
             }
         }.runTaskLater(RunAwayFromLaser.getInstance(), count[0] * 20L + delay);
+
+        updateScoreboardTask = new BukkitRunnable() {
+            @Override
+            public void run() {
+                Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+                Objective objective = scoreboard.getObjective(RunAwayFromLaser.objectiveName);
+
+                Bukkit.getOnlinePlayers().forEach(p -> {
+                    if (Util.isCreativeOrSpectator(p)) {
+                        return;
+                    }
+
+                    Block b = p.getLocation().add(0, -0.3, 0).getBlock();
+                    if (b.getType().equals(Material.QUARTZ_STAIRS)) {
+                        objective.getScore(p.getName()).setScore(b.getY() + 2032);
+                        Bukkit.getLogger().info("a");
+                    }
+                });
+            }
+        }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 0);
     }
 
     private void setWall(Material material) {
@@ -94,6 +119,7 @@ public class GameManager {
         api.cancel();
         countTask.cancel();
         laserStartTask.cancel();
+        updateScoreboardTask.cancel();
 
         Config config = Config.getInstance();
         this.api = Laser.create(config.stairInfo.origin, config.stairInfo.width);
