@@ -19,7 +19,7 @@ public class PauseCommand implements SubCommand {
         }
 
         api.setPaused(true);
-        sender.sendMessage(ChatColor.GREEN + "レーザーを一時停止にしました.");
+        sender.sendMessage(ChatColor.GREEN + "レーザーの動作を一時停止させました.");
     }
 
     @Override

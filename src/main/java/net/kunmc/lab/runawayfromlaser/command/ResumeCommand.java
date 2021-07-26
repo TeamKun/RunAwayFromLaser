@@ -14,12 +14,12 @@ public class ResumeCommand implements SubCommand {
         LaserApi api = GameManager.getInstance().api;
 
         if (!api.isPaused()) {
-            sender.sendMessage(ChatColor.RED + "レーザーはすでに進行中です.");
+            sender.sendMessage(ChatColor.RED + "レーザーはすでに作動中です.");
             return;
         }
 
         api.setPaused(false);
-        sender.sendMessage(ChatColor.GREEN + "レーザーの動作を再開しました.");
+        sender.sendMessage(ChatColor.GREEN + "レーザーの作動を再開させました.");
     }
 
     @Override
