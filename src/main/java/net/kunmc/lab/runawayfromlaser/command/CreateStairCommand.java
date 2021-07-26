@@ -2,6 +2,8 @@ package net.kunmc.lab.runawayfromlaser.command;
 
 import net.kunmc.lab.runawayfromlaser.RunAwayFromLaser;
 import net.kunmc.lab.runawayfromlaser.config.Config;
+import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -125,6 +127,10 @@ public class CreateStairCommand implements SubCommand {
             public void run() {
                 for (int x = 0; x < width; x++) {
                     basePoint.clone().add(x, y, z).getBlock().setBlockData(stair);
+                }
+
+                if (y == 2031) {
+                    Bukkit.broadcast(Component.text(ChatColor.GREEN + "階段の生成が完了しました."));
                 }
             }
         }
