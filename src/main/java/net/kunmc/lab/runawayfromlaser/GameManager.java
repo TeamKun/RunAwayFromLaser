@@ -17,7 +17,7 @@ import java.util.List;
 public class GameManager {
     public LaserApi api;
     public boolean isStarted = false;
-    public int delay = 100;
+    public int delay = 5;
     private final List<BukkitTask> taskList = new ArrayList<>();
     private static final GameManager instance = new GameManager();
 
@@ -53,7 +53,7 @@ public class GameManager {
                     } else {
                         setWall(Material.AIR);
                         p.sendTitle("スタート!",
-                                ChatColor.RED + "" + delay / 20 + "秒後レーザーが後ろから追いかけてきます", 0, 40, 20);
+                                ChatColor.RED + "" + delay + "秒後レーザーが後ろから追いかけてきます", 0, 40, 20);
 
                         taskList.add(new BukkitRunnable() {
                             @Override
@@ -64,7 +64,7 @@ public class GameManager {
                                     p.sendTitle("", ChatColor.RED + "レーザーが後ろから追いかけてきました", 0, 30, 20);
                                 });
                             }
-                        }.runTaskLater(RunAwayFromLaser.getInstance(), delay));
+                        }.runTaskLater(RunAwayFromLaser.getInstance(), delay * 20L));
 
                         this.cancel();
                     }
