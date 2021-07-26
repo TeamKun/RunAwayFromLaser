@@ -11,13 +11,14 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameManager {
     public LaserApi api;
     public boolean isStarted = false;
     public int delay = 100;
-    private BukkitTask countTask;
-    private BukkitTask laserStartTask;
-    private BukkitTask updateScoreboardTask;
+    private final List<BukkitTask> taskList = new ArrayList<>();
     private static final GameManager instance = new GameManager();
 
     public static GameManager getInstance() {
@@ -43,7 +44,7 @@ public class GameManager {
         isStarted = true;
 
         final int[] count = {10};
-        countTask = new BukkitRunnable() {
+        taskList.add(new BukkitRunnable() {
             @Override
             public void run() {
                 Bukkit.getOnlinePlayers().forEach(p -> {
@@ -59,9 +60,9 @@ public class GameManager {
                 });
                 count[0]--;
             }
-        }.runTaskTimer(RunAwayFromLaser.getInstance(), 0, 20);
+        }.runTaskTimer(RunAwayFromLaser.getInstance(), 0, 20));
 
-        laserStartTask = new BukkitRunnable() {
+        taskList.add(new BukkitRunnable() {
             @Override
             public void run() {
                 api.setPaused(false);
@@ -70,9 +71,9 @@ public class GameManager {
                     p.sendTitle("", ChatColor.RED + "レーザーが後ろから追いかけてきました", 0, 30, 20);
                 });
             }
-        }.runTaskLater(RunAwayFromLaser.getInstance(), count[0] * 20L + delay);
+        }.runTaskLater(RunAwayFromLaser.getInstance(), count[0] * 20L + delay));
 
-        updateScoreboardTask = new BukkitRunnable() {
+        taskList.add(new BukkitRunnable() {
             @Override
             public void run() {
                 Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
@@ -90,7 +91,7 @@ public class GameManager {
                     }
                 });
             }
-        }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 0);
+        }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 0));
     }
 
     private void setWall(Material material) {
@@ -117,9 +118,8 @@ public class GameManager {
 
     public void stop() {
         api.cancel();
-        countTask.cancel();
-        laserStartTask.cancel();
-        updateScoreboardTask.cancel();
+        taskList.forEach(BukkitTask::cancel);
+        taskList.clear();
 
         Config config = Config.getInstance();
         this.api = Laser.create(config.stairInfo.origin, config.stairInfo.width);
