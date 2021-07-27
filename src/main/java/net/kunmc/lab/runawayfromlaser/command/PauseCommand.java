@@ -11,8 +11,14 @@ import java.util.List;
 public class PauseCommand implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
-        LaserApi api = GameManager.getInstance().api;
+        GameManager manager = GameManager.getInstance();
+        LaserApi api = manager.api;
 
+        if (!manager.isStarted) {
+            sender.sendMessage(ChatColor.RED + "ゲームが開始されていません.");
+            return;
+        }
+        
         if (api.isPaused()) {
             sender.sendMessage(ChatColor.RED + "レーザーはすでに一時停止中です.");
             return;

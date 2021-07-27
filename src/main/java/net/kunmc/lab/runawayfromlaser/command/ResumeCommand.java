@@ -11,7 +11,13 @@ import java.util.List;
 public class ResumeCommand implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
-        LaserApi api = GameManager.getInstance().api;
+        GameManager manager = GameManager.getInstance();
+        LaserApi api = manager.api;
+
+        if (!manager.isStarted) {
+            sender.sendMessage(ChatColor.RED + "ゲームが開始されていません.");
+            return;
+        }
 
         if (!api.isPaused()) {
             sender.sendMessage(ChatColor.RED + "レーザーはすでに作動中です.");
