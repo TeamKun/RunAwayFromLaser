@@ -84,6 +84,7 @@ public class CreateStairCommand implements SubCommand {
 
         @Override
         public void run() {
+            //スタート地点の床を生成する
             for (int x = -30; x < width + 30; x++) {
                 for (int z = -(width + 10); z < 20; z++) {
                     int finalX = x;
@@ -99,6 +100,23 @@ public class CreateStairCommand implements SubCommand {
                             if (b.getLightLevel() < 9) {
                                 b.setType(Material.GLOWSTONE);
                             } else {
+                                b.setType(Material.QUARTZ_SLAB);
+                            }
+                        }
+                    }.runTaskLater(RunAwayFromLaser.getInstance(), x + 30);
+                }
+            }
+
+            //ゴール地点の床を生成する
+            for (int x = -30; x < width + 30; x++) {
+                for (int z = 0; z < width + 10 + 20; z++) {
+                    int finalX = x;
+                    int finalZ = z;
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            Block b = basePoint.clone().add(finalX, 2031, 4064 + finalZ).getBlock();
+                            if (!b.getType().equals(Material.QUARTZ_STAIRS)) {
                                 b.setType(Material.QUARTZ_SLAB);
                             }
                         }
