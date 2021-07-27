@@ -22,6 +22,7 @@ public class GameManager {
     public int delay = 5;
     public boolean shouldMobSpawn = true;
     public double mobSpawnProbability = 50.0;
+    public boolean shouldShowLaserPos = false;
     private final List<BukkitTask> taskList = new ArrayList<>();
     private static final GameManager instance = new GameManager();
 
@@ -150,6 +151,17 @@ public class GameManager {
                     });
                 }
             }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 20));
+
+            taskList.add(new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (shouldShowLaserPos) {
+                        Bukkit.getOnlinePlayers().forEach(p -> {
+                            p.sendActionBar(ChatColor.LIGHT_PURPLE + "レーザーの現在位置 " + (api.origin().getBlockY() + 2030));
+                        });
+                    }
+                }
+            }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 4));
         }
     }
 
