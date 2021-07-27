@@ -13,3 +13,4 @@ commands:
       /rafl resume
       /rafl config show
       /rafl config set <value>
+    permission: op
