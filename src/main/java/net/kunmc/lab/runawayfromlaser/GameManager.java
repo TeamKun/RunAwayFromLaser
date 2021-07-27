@@ -106,7 +106,12 @@ public class GameManager {
 
                     //最高地点に行ったプレイヤーをクリエイティブにする
                     if (b.getY() >= 2031) {
-                        p.setGameMode(GameMode.CREATIVE);
+                        new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                p.setGameMode(GameMode.CREATIVE);
+                            }
+                        }.runTask(RunAwayFromLaser.getInstance());
                     }
                 });
             }
@@ -136,7 +141,7 @@ public class GameManager {
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                p.getWorld().spawnEntity(p.getLocation().add(0, 0, -15), typeList.get(0), CreatureSpawnEvent.SpawnReason.CUSTOM, e -> {
+                                p.getWorld().spawnEntity(p.getLocation().add(0, 52, 50), typeList.get(0), CreatureSpawnEvent.SpawnReason.CUSTOM, e -> {
                                     ((Mob) e).setAware(false);
                                     e.setInvulnerable(true);
                                 });

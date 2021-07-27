@@ -7,9 +7,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Laser {
     Location origin;
     int length;
-    double gap = 0.0625;
+    double gap = 0.2;
     float size = 1.0F;
-    double speedRatio = 0.85;
+    double speedRatio = 0.9;
     boolean isPaused = true;
     boolean isInvisible = true;
     GenerateLaserTask generateLaserTask;
