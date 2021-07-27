@@ -80,10 +80,10 @@ public class ConfigSetCommand implements SubCommand {
 
     private void paused(CommandSender sender, String value) {
         try {
-            GameManager.getInstance().api.laserGap(Double.parseDouble(value));
-            sender.sendMessage(ChatColor.GREEN + "gapの値を" + value + "に設定しました.");
+            GameManager.getInstance().api.setPaused(Boolean.parseBoolean(value));
+            sender.sendMessage(ChatColor.GREEN + "pausedの値を" + value + "に設定しました.");
         } catch (Exception e) {
-            sender.sendMessage(ChatColor.RED + "gapの値はDouble値で入力してください.");
+            sender.sendMessage(ChatColor.RED + "pausedの値はBoolean値で入力してください.");
         }
     }
 
