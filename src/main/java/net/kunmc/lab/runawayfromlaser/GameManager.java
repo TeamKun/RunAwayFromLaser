@@ -118,51 +118,53 @@ public class GameManager {
             }
         }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 0));
 
-        if (shouldMobSpawn) {
-            List<EntityType> typeList = Arrays.asList(EntityType.HUSK, EntityType.DOLPHIN, EntityType.LLAMA, EntityType.CREEPER, EntityType.ELDER_GUARDIAN);
-            Random rand = new Random();
-            taskList.add(new BukkitRunnable() {
-                @Override
-                public void run() {
+        List<EntityType> typeList = Arrays.asList(EntityType.HUSK, EntityType.DOLPHIN, EntityType.LLAMA, EntityType.CREEPER, EntityType.ELDER_GUARDIAN);
+        Random rand = new Random();
+        taskList.add(new BukkitRunnable() {
+            @Override
+            public void run() {
+                Bukkit.getOnlinePlayers().forEach(p -> {
+                    if (!shouldMobSpawn) {
+                        return;
+                    }
+
+                    if (Util.isCreativeOrSpectator(p)) {
+                        return;
+                    }
+
+                    double step = p.getLocation().getBlockY() + 2032;
+                    if (step < 100) {
+                        return;
+                    }
+
+                    if ((step / 2000) * mobSpawnProbability < rand.nextInt(100)) {
+                        return;
+                    }
+
+                    Collections.shuffle(typeList);
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            p.getWorld().spawnEntity(p.getLocation().add(0, 52, 50), typeList.get(0), CreatureSpawnEvent.SpawnReason.CUSTOM, e -> {
+                                ((Mob) e).setAware(false);
+                                e.setInvulnerable(true);
+                            });
+                        }
+                    }.runTask(RunAwayFromLaser.getInstance());
+                });
+            }
+        }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 20));
+
+        taskList.add(new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (shouldShowLaserPos) {
                     Bukkit.getOnlinePlayers().forEach(p -> {
-                        if (Util.isCreativeOrSpectator(p)) {
-                            return;
-                        }
-
-                        double step = p.getLocation().getBlockY() + 2032;
-                        if (step < 100) {
-                            return;
-                        }
-
-                        if ((step / 2000) * mobSpawnProbability < rand.nextInt(100)) {
-                            return;
-                        }
-
-                        Collections.shuffle(typeList);
-                        new BukkitRunnable() {
-                            @Override
-                            public void run() {
-                                p.getWorld().spawnEntity(p.getLocation().add(0, 52, 50), typeList.get(0), CreatureSpawnEvent.SpawnReason.CUSTOM, e -> {
-                                    ((Mob) e).setAware(false);
-                                    e.setInvulnerable(true);
-                                });
-                            }
-                        }.runTask(RunAwayFromLaser.getInstance());
+                        p.sendActionBar(ChatColor.LIGHT_PURPLE + "レーザーの現在位置 " + (api.origin().getBlockY() + 2030));
                     });
                 }
-            }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 20));
-
-            taskList.add(new BukkitRunnable() {
-                @Override
-                public void run() {
-                    if (shouldShowLaserPos) {
-                        Bukkit.getOnlinePlayers().forEach(p -> {
-                            p.sendActionBar(ChatColor.LIGHT_PURPLE + "レーザーの現在位置 " + (api.origin().getBlockY() + 2030));
-                        });
-                    }
-                }
-            }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 4));
-        }
+            }
+        }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 4));
     }
 
     private void setWall(Material material) {
