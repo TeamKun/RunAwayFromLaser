@@ -103,6 +103,11 @@ public class GameManager {
                     if (b.getType().equals(Material.QUARTZ_STAIRS)) {
                         objective.getScore(p.getName()).setScore(b.getY() + 2032);
                     }
+
+                    //最高地点に行ったプレイヤーをクリエイティブにする
+                    if (b.getY() >= 2031) {
+                        p.setGameMode(GameMode.CREATIVE);
+                    }
                 });
             }
         }.runTaskTimerAsynchronously(RunAwayFromLaser.getInstance(), 0, 0));
