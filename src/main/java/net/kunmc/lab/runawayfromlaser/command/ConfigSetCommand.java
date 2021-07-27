@@ -100,7 +100,7 @@ public class ConfigSetCommand implements SubCommand {
     private void shouldMobSpawn(CommandSender sender, String value) {
         try {
             GameManager.getInstance().shouldMobSpawn = Boolean.parseBoolean(value);
-            sender.sendMessage(ChatColor.GREEN + "shouldMobSpawnの値派を" + value + "に設定しました.");
+            sender.sendMessage(ChatColor.GREEN + "shouldMobSpawnの値を" + value + "に設定しました.");
         } catch (Exception e) {
             sender.sendMessage(ChatColor.RED + "shouldMobSpawnの値はBoolean値で入力してください.");
         }
