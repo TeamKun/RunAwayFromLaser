@@ -22,7 +22,7 @@ public class GameManager {
     public int delay = 5;
     public boolean shouldMobSpawn = true;
     public double mobSpawnProbability = 50.0;
-    public boolean shouldShowLaserPos = false;
+    public boolean shouldShowLaserPos = true;
     private final List<BukkitTask> taskList = new ArrayList<>();
     private static final GameManager instance = new GameManager();
 
