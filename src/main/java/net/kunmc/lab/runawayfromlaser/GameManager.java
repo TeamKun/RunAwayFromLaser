@@ -19,7 +19,7 @@ import java.util.*;
 public class GameManager {
     public LaserApi api;
     public boolean isStarted = false;
-    public int delay = 5;
+    public int delay = 3;
     public boolean shouldMobSpawn = true;
     public double mobSpawnProbability = 50.0;
     public int mobSpawnOffset = 60;
