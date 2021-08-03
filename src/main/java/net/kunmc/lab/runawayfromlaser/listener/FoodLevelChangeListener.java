@@ -9,7 +9,7 @@ public class FoodLevelChangeListener implements Listener {
     @EventHandler
     public void onFoodLevelChange(FoodLevelChangeEvent e) {
         if (GameManager.getInstance().isStarted) {
-            e.getEntity().setFoodLevel(20);
+            e.setFoodLevel(20);
         }
     }
 }
