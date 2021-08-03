@@ -2,6 +2,7 @@ package net.kunmc.lab.runawayfromlaser;
 
 import net.kunmc.lab.runawayfromlaser.command.CommandHandler;
 import net.kunmc.lab.runawayfromlaser.config.Config;
+import net.kunmc.lab.runawayfromlaser.listener.FoodLevelChangeListener;
 import net.kunmc.lab.runawayfromlaser.listener.PlayerDeathListener;
 import net.kunmc.lab.runawayfromlaser.listener.PlayerJumpListener;
 import net.kyori.adventure.text.Component;
@@ -30,6 +31,7 @@ public final class RunAwayFromLaser extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJumpListener(), this);
+        getServer().getPluginManager().registerEvents(new FoodLevelChangeListener(), this);
 
         Config.getInstance().loadConfig();
 
