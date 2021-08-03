@@ -25,6 +25,7 @@ public class ConfigShowCommand implements SubCommand {
         sender.sendMessage(format("shouldMobSpawn:%b", manager.shouldMobSpawn));
         sender.sendMessage(format("laserDelay:%d", manager.delay));
         sender.sendMessage(format("mobSpawnProbability:%f", manager.mobSpawnProbability));
+        sender.sendMessage(format("mobSpawnOffset:%d", manager.mobSpawnOffset));
         sender.sendMessage(format("shouldShowLaserPos:%b", manager.shouldShowLaserPos));
     }
 

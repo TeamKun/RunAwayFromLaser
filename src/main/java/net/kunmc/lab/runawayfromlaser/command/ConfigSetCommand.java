@@ -21,6 +21,7 @@ public class ConfigSetCommand implements SubCommand {
         put("laserDelay", ConfigSetCommand.this::laserDelay);
         put("mobSpawnProbability", ConfigSetCommand.this::mobSpawnProbability);
         put("shouldShowLaserPos", ConfigSetCommand.this::shouldShowLaserPos);
+        put("mobSpawnOffset", ConfigSetCommand.this::mobSpawnOffset);
     }};
 
     @Override
@@ -130,6 +131,15 @@ public class ConfigSetCommand implements SubCommand {
             sender.sendMessage(ChatColor.GREEN + "shouldShowLaserPosの値を" + value + "に設定しました.");
         } catch (Exception e) {
             sender.sendMessage(ChatColor.RED + "shouldShowLaserPosの値はBoolean値で入力してください.");
+        }
+    }
+
+    private void mobSpawnOffset(CommandSender sender, String value) {
+        try {
+            GameManager.getInstance().mobSpawnOffset = Integer.parseInt(value);
+            sender.sendMessage(ChatColor.GREEN + "mobSpawnOffsetの値を" + value + "に設定しました.");
+        } catch (Exception e) {
+            sender.sendMessage(ChatColor.RED + "mobSpawnOffsetの値はInteger値で入力してください.");
         }
     }
 }

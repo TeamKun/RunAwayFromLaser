@@ -22,6 +22,7 @@ public class GameManager {
     public int delay = 5;
     public boolean shouldMobSpawn = true;
     public double mobSpawnProbability = 50.0;
+    public int mobSpawnOffset = 60;
     public boolean shouldShowLaserPos = true;
     private final List<BukkitTask> taskList = new ArrayList<>();
     private static final GameManager instance = new GameManager();
@@ -149,7 +150,7 @@ public class GameManager {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            p.getWorld().spawnEntity(p.getLocation().add(0, 52, 50), typeList.get(0), CreatureSpawnEvent.SpawnReason.CUSTOM, e -> {
+                            p.getWorld().spawnEntity(p.getLocation().add(0, mobSpawnOffset + 2, mobSpawnOffset), typeList.get(0), CreatureSpawnEvent.SpawnReason.CUSTOM, e -> {
                                 ((Mob) e).setAware(false);
                                 e.setInvulnerable(true);
                             });
