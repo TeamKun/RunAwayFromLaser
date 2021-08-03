@@ -12,5 +12,5 @@ commands:
       /rafl pause
       /rafl resume
       /rafl config show
-      /rafl config set <value>
+      /rafl config set <configItem> <value>
     permission: op

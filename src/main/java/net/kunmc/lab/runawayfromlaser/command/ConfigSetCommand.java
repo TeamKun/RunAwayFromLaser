@@ -29,7 +29,7 @@ public class ConfigSetCommand implements SubCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "usage: /rafl config set <value>");
+            sender.sendMessage(ChatColor.RED + "usage: /rafl config set <configItem> <value>");
             return;
         }
 
