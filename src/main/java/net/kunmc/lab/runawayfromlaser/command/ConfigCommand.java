@@ -38,7 +38,7 @@ public class ConfigCommand implements SubCommand {
             completion.addAll(subCommandMap.keySet());
         }
 
-        if (args.length == 2 && subCommandMap.containsKey(args[0])) {
+        if (args.length > 1 && subCommandMap.containsKey(args[0])) {
             completion.addAll(subCommandMap.get(args[0]).tabComplete(sender, CommandHandler.nextArgs(args)));
         }
 
