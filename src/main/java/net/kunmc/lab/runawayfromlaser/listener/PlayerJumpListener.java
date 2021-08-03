@@ -8,13 +8,15 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 public class PlayerJumpListener implements Listener {
+    public static boolean canPlayersJump = false;
+
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerJump(PlayerJumpEvent e) {
         if (Util.isCreativeOrSpectator(e.getPlayer())) {
             return;
         }
 
-        if (GameManager.getInstance().isStarted) {
+        if (!canPlayersJump && GameManager.getInstance().isStarted) {
             e.setCancelled(true);
         }
     }

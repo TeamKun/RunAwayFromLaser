@@ -2,6 +2,7 @@ package net.kunmc.lab.runawayfromlaser.command;
 
 import net.kunmc.lab.runawayfromlaser.GameManager;
 import net.kunmc.lab.runawayfromlaser.laser.LaserApi;
+import net.kunmc.lab.runawayfromlaser.listener.PlayerJumpListener;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -27,6 +28,7 @@ public class ConfigShowCommand implements SubCommand {
         sender.sendMessage(format("mobSpawnProbability:%f", manager.mobSpawnProbability));
         sender.sendMessage(format("mobSpawnOffset:%d", manager.mobSpawnOffset));
         sender.sendMessage(format("shouldShowLaserPos:%b", manager.shouldShowLaserPos));
+        sender.sendMessage(format("canPlayersJump:%b", PlayerJumpListener.canPlayersJump));
     }
 
     @Override

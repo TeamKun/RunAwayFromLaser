@@ -1,6 +1,7 @@
 package net.kunmc.lab.runawayfromlaser.command;
 
 import net.kunmc.lab.runawayfromlaser.GameManager;
+import net.kunmc.lab.runawayfromlaser.listener.PlayerJumpListener;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -22,6 +23,7 @@ public class ConfigSetCommand implements SubCommand {
         put("mobSpawnProbability", ConfigSetCommand.this::mobSpawnProbability);
         put("shouldShowLaserPos", ConfigSetCommand.this::shouldShowLaserPos);
         put("mobSpawnOffset", ConfigSetCommand.this::mobSpawnOffset);
+        put("canPlayersJump", ConfigSetCommand.this::canPlayersJump);
     }};
 
     @Override
@@ -140,6 +142,15 @@ public class ConfigSetCommand implements SubCommand {
             sender.sendMessage(ChatColor.GREEN + "mobSpawnOffsetの値を" + value + "に設定しました.");
         } catch (Exception e) {
             sender.sendMessage(ChatColor.RED + "mobSpawnOffsetの値はInteger値で入力してください.");
+        }
+    }
+
+    private void canPlayersJump(CommandSender sender, String value) {
+        try {
+            PlayerJumpListener.canPlayersJump = Boolean.parseBoolean(value);
+            sender.sendMessage(ChatColor.GREEN + "canPlayersJumpの値を" + value + "に設定しました.");
+        } catch (Exception e) {
+            sender.sendMessage(ChatColor.RED + "canPlayersJumpの値はBoolean値で入力してください.");
         }
     }
 }
