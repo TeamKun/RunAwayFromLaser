@@ -3,6 +3,7 @@ package net.kunmc.lab.runawayfromlaser;
 import net.kunmc.lab.runawayfromlaser.command.CommandHandler;
 import net.kunmc.lab.runawayfromlaser.config.Config;
 import net.kunmc.lab.runawayfromlaser.listener.PlayerDeathListener;
+import net.kunmc.lab.runawayfromlaser.listener.PlayerJumpListener;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.TabExecutor;
@@ -28,6 +29,7 @@ public final class RunAwayFromLaser extends JavaPlugin {
         getServer().getPluginCommand("rafl").setTabCompleter(tabExecutor);
 
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJumpListener(), this);
 
         Config.getInstance().loadConfig();
 
