@@ -36,6 +36,8 @@ public class GameManager {
     }
 
     public void start() {
+        isStarted = true;
+
         api.origin(Config.getInstance().stairInfo.origin);
         api.length(Config.getInstance().stairInfo.width);
 
@@ -54,7 +56,9 @@ public class GameManager {
             p.teleport(api.origin().add(api.length() / 2, 1, -8));
         });
 
-        isStarted = true;
+        //スコアボードのスコアをリセット
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        scoreboard.getEntries().forEach(scoreboard::resetScores);
 
         //開始のカウントダウンをするタスク
         final int[] count = {10};
