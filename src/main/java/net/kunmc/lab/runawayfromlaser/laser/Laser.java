@@ -9,7 +9,7 @@ public class Laser {
     int length;
     double gap = 0.2;
     float size = 1.0F;
-    double speedRatio = 0.9;
+    double speedRatio = 0.98;
     boolean isPaused = true;
     boolean isInvisible = true;
     GenerateLaserTask generateLaserTask;
